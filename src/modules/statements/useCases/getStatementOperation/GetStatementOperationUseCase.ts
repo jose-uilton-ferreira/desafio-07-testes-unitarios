@@ -29,10 +29,10 @@ export class GetStatementOperationUseCase {
     const statementOperation = await this.statementsRepository
       .findStatementOperation({ user_id, statement_id });
 
-      if(!statementOperation) {
-        throw new GetStatementOperationError.StatementNotFound();
-      }
+    if(!statementOperation) {
+      throw new GetStatementOperationError.StatementNotFound();
+    }
 
-      return statementOperation;
+    return statementOperation;
   }
 }
