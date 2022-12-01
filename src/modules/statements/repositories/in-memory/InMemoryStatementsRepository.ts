@@ -29,10 +29,12 @@ export class InMemoryStatementsRepository implements IStatementsRepository {
       { balance: number } | { balance: number, statement: Statement[] }
     >
   {
-    const statement = this.statements.filter(operation => operation.user_id === user_id);
+    const statement = this.statements.filter(
+      operation => operation.user_id === user_id || operation.sender_id === user_id
+    );
 
     const balance = statement.reduce((acc, operation) => {
-      if (operation.type === 'deposit') {
+      if (operation.type === 'deposit' || (operation.type === 'transfer' && operation.user_id === user_id)) {
         return acc + operation.amount;
       } else {
         return acc - operation.amount;
